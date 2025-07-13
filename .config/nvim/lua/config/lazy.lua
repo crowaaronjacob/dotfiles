@@ -21,6 +21,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case --hidden --glob '!.next'"
+vim.opt.grepformat = "%f:%l:%c:%m"
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {

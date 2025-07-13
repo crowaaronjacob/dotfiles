@@ -1,5 +1,6 @@
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export TIPTAP_PRO_TOKEN=LiPNpgKJm//WsTGWqfI61JilYGLRYWRJYrhkvsFaVJyHSdc+pGujiogVhRm5FSad
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH="$PATH:/Users/aaron/Documents/WebDriver/chromedriver"
@@ -80,3 +81,10 @@ chpwd() {
   fi
 }
 
+
+[ -f "/Users/aaron/.ghcup/env" ] && . "/Users/aaron/.ghcup/env" # ghcup-env
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+ eval "$(pyenv init -)"
+fi

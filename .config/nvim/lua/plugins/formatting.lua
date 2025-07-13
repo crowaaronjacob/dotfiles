@@ -7,11 +7,14 @@ return {
 				null_ls.builtins.formatting.prettier,
 				null_ls.builtins.diagnostics.eslint,
 				null_ls.builtins.code_actions.eslint,
+				null_ls.builtins.formatting.black,
+				null_ls.builtins.formatting.isort,
+				null_ls.builtins.diagnostics.flake8,
 			},
 		})
-		-- Format on save for JS/TS only
+		-- Format on save for JS/TS and Python
 		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" },
+			pattern = { "*.js", "*.ts", "*.jsx", "*.tsx", "*.py" },
 			callback = function()
 				vim.lsp.buf.format({
 					filter = function(client)
