@@ -40,20 +40,20 @@ dev() {
 
   echo "Creating new tmux session '$session_name'..."
 
-  # Start new detached session
+  # Start new detached session with window 0
   tmux new-session -d -s "$session_name" -c "$PWD" -n editor 'nvim'
 
-  # Create a second window for the server
-  tmux new-window -t "$session_name:" -n server -c "$PWD" 'npm run dev'
+  # Create window 1 for terminal/git tasks
+  tmux new-window -t "$session_name" -n terminal -c "$PWD"
 
-  # Create a third window for git/terminal tasks
-  tmux new-window -t "$session_name:" -n terminal -c "$PWD"
+  # Select the editor window before attaching
+  tmux select-window -t "$session_name:0"
 
   # Attach to the session
   tmux attach -t "$session_name"
 }
 
-# Automatically start a tmux session in a git project with 3 windows
+# Automatically start a tmux session in a git project with 2 windows
 auto_tmux() {
   if [[ -d .git || -n $(git rev-parse --git-dir 2>/dev/null) ]]; then
     local session_name
@@ -62,10 +62,11 @@ auto_tmux() {
     if ! tmux has-session -t "$session_name" 2>/dev/null; then
       echo "Creating tmux session: $session_name"
 
-      # Start detached and create windows
+      # Start detached session with window 0
       tmux new-session -d -s "$session_name" -c "$PWD" -n editor 'nvim'
-      tmux new-window -t "$session_name:1" -n server -c "$PWD" 'npm run dev'
-      tmux new-window -t "$session_name:2" -n terminal -c "$PWD"
+      
+      # Create window 1 for terminal
+      tmux new-window -t "$session_name" -n terminal -c "$PWD"
     fi
 
     # Attach to session, starting in window 0 (editor)
